@@ -15,6 +15,15 @@
 #
 def triangle(a, b, c)
   # WRITE THIS CODE
+  sides = [a,b,c]
+  raise TriangleError, "Sides can't be 0 or negative" if sides.min <= 0;
+  sides.sort!
+  raise TriangleError, "2 of the sides must be bigger than the third" if (sides[0] + sides[1] <= sides[2]);
+
+  return :equilateral if sides.uniq.length == 1
+  return :isosceles if sides.uniq.length == 2
+  return :scalene if sides.uniq.length == 3
+
 end
 
 # Error class used in part 2.  No need to change this code.
