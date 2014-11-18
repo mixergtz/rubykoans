@@ -31,6 +31,48 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+  total_score = 0;
+  numbers = { 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0 }
+
+  if dice.empty?
+    total_score
+  else
+    dice.each do |number|
+      numbers[number] += 1
+    end
+
+    #Ifs to check if theres a triple value and set total_score, should be DRYed (maybe with a loop?)
+    if numbers[1] >= 3
+      total_score += 1000
+      total_score += 100 * (numbers[1] - 3)
+      total_score += 50 * numbers[5]
+    elsif numbers[2] >= 3
+      total_score += 200
+      total_score += 50 * numbers[5]
+      total_score += 100 * numbers[1]
+    elsif numbers[3] >= 3
+      total_score += 300
+      total_score += 50 * numbers[5]
+      total_score += 100 * numbers[1]
+    elsif numbers[4] >= 3
+      total_score += 400
+      total_score += 50 * numbers[5]
+      total_score += 100 * numbers[1]
+    elsif numbers[5] >= 3
+      total_score += 500
+      total_score += 50 * (numbers[5] - 3)
+      total_score += 100 * numbers[1]
+    elsif numbers[6] >= 3
+      total_score += 600
+      total_score += 50 * numbers[5]
+      total_score += 100 * numbers[1]
+    else
+      total_score += numbers[1]*100 + numbers[5]*50
+    end
+
+  end
+
+  total_score
 end
 
 class AboutScoringProject < Neo::Koan
